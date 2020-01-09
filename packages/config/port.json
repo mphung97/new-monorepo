@@ -1,0 +1,6 @@
+{
+  "server": {
+    "auth_port": 4001,
+    "demo_port": 4002
+  }
+}
