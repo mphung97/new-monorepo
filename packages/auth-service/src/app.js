@@ -10,6 +10,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => res.send('Auth API !!!'));
-app.use('/auth', Auth);
+app.use('/', Auth);
 
 app.listen(AUTH_SERVER_PORT, () => console.log(`AuthAPI listening on port ${AUTH_SERVER_PORT}!`));
