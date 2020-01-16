@@ -1,4 +1,4 @@
-const { generate_access_token, has_empty_value_in_array } = require('../util');
+const utilities = require('utilities');
 const { authenticate_client, authenticate_user_credentials } = require('../services');
 
 exports.token = function (req, res) {
@@ -7,7 +7,7 @@ exports.token = function (req, res) {
   const client_id = req.body.client_id;
   const client_secret = req.body.client_secret;
 
-  if (has_empty_value_in_array([username, password, client_id, client_secret])) {
+  if (utilities.hasEmptyValueInArray([username, password, client_id, client_secret])) {
     return res.status(400).json({
       error: "invalid_request",
       error_description: 'Required parameters are missing in the request.'
@@ -19,7 +19,7 @@ exports.token = function (req, res) {
   if (!authenticate_user_credentials(username, password)) {
     return res.status(400).json({ error: "invalid_request" });
   }
-  const token = generate_access_token();
+  const token = utilities.generateAccessToken();
 
   return res.json({ token });
 }
