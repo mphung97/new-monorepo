@@ -1,5 +1,5 @@
 const utilities = require('utilities');
-const { authenticate_client, authenticate_user_credentials } = require('../services');
+const { authenticateClient, authenticateUserCredentials } = require('../services');
 
 exports.token = function (req, res) {
   const username = req.body.username;
@@ -13,12 +13,15 @@ exports.token = function (req, res) {
       error_description: 'Required parameters are missing in the request.'
     });
   }
-  if (!authenticate_client(client_id, client_secret)) {
+  
+  if (!authenticateClient(client_id, client_secret)) {
     return res.status(401).json({ error: "access_denied" });
   }
-  if (!authenticate_user_credentials(username, password)) {
+
+  if (!authenticateUserCredentials(username, password)) {
     return res.status(400).json({ error: "invalid_request" });
   }
+
   const token = utilities.generateAccessToken();
 
   return res.json({ token });

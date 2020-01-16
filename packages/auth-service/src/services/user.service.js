@@ -9,7 +9,7 @@ findByUsername = username => {
   return User.findOne({ username });
 };
 
-exports.authenticate_user_credentials = function (username, password) {
+exports.authenticateUserCredentials = function (username, password) {
   // check in db
   return true;
 }

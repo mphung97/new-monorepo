@@ -9,7 +9,7 @@ findByClientId = clientId => {
   return Client.findOne({ clientId });
 };
 
-exports.authenticate_client = function (client_id, client_secret) {
+exports.authenticateClient = function (client_id, client_secret) {
   // check in db
   return true;
 }
