@@ -1,12 +1,12 @@
 const Client = require('../db/model/Client');
 
-createClient = data => {
+createClient = async data => {
   const client = new Client(data);
-  return client.save();
+  return await client.save();
 };
 
-findByClientId = clientId => {
-  return Client.findOne({ clientId });
+findByClientId = async clientId => {
+  return await Client.findOne({ clientId });
 };
 
 exports.authenticateClient = function (client_id, client_secret) {

@@ -2,6 +2,10 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "lerna": "^3.20.2",
+    "mongodb-memory-server": "^6.2.2"
+  },
+  "dependencies": {
+    "mongoose": "^5.8.7"
   }
 }
