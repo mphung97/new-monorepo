@@ -1,15 +1,20 @@
-const User = require('../db/model/User');
+const { User } = require('../db/model/User');
 
-createUser = data => {
+createUser = async () => {
+  const data = {
+    username: 'phphan',
+    password: '123456'
+  };
   const user = new User(data);
-  return user.save();
+  return await user.save();
 };
 
-findByUsername = username => {
-  return User.findOne({ username });
+findByUsername = async username => {
+  return await User.findOne({ username });
 };
 
 exports.authenticateUserCredentials = function (username, password) {
   // check in db
+  findByUsername(username);
   return true;
 }

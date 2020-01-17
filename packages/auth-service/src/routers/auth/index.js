@@ -2,13 +2,15 @@
 
 const router = require('express').Router();
 
+const { createClient } = require('../../services');
+
 const ROPC = require('../../controllers/ropc.controller');
 const AC = require('../../controllers/ac.controller');
 const CC = require('../../controllers/cc.controller');
 
 router
-  .get('/auth', (req, res) => {
-    res.render('auth');
+  .get('/createdb', (req, res) => {
+    res.json(createClient());
   })
   .post('/token', (req, res) => {
     switch (req.body.grant_type) {

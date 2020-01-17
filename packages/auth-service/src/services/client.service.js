@@ -1,15 +1,23 @@
-const Client = require('../db/model/Client');
+const { Client } = require('../db/model/Client');
 
-createClient = async data => {
+exports.createClient = () => {
+  const data = {
+    clientId: 'phphan',
+    clientSecret: 'phphansecret'
+  };
   const client = new Client(data);
-  return await client.save();
+  return client.save();
 };
 
-findByClientId = async clientId => {
-  return await Client.findOne({ clientId });
+findByClientId = clientId => {
+  const client = Client.findOne({ clientId });
+  return client;
 };
 
-exports.authenticateClient = function (client_id, client_secret) {
-  // check in db
-  return true;
+exports.authenticateClient = async (client_id, client_secret) => {
+  console.log(await findByClientId(client_id));
+  if (await findByClientId(client_id)) {
+    return true;
+  }
+  return false;
 }

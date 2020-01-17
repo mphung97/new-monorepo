@@ -13,6 +13,7 @@ exports.token = function (req, res) {
       error_description: 'Required parameters are missing in the request.'
     });
   }
+  console.log(authenticateClient(client_id, client_secret));
   
   if (!authenticateClient(client_id, client_secret)) {
     return res.status(401).json({ error: "access_denied" });
