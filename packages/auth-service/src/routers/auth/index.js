@@ -2,15 +2,18 @@
 
 const router = require('express').Router();
 
-const { createClient } = require('../../services');
+const service = require('../../services');
 
 const ROPC = require('../../controllers/ropc.controller');
 const AC = require('../../controllers/ac.controller');
 const CC = require('../../controllers/cc.controller');
 
 router
-  .get('/createdb', (req, res) => {
-    res.json(createClient());
+  .post('/signup', (req, res) => {
+    // validate req.body
+    service.user.create(req.body)
+    .then(res.sendStatus(201))
+    .catch(res.sendStatus(400));
   })
   .post('/token', (req, res) => {
     switch (req.body.grant_type) {

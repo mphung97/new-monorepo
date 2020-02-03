@@ -4,12 +4,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 4001;
-const db = require('./db');
-
-db.connect();
-db.clearDatabase();
-
 const authRouter = require('./routers/auth');
+
+require('./db');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname , '/views'));

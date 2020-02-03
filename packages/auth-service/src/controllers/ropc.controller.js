@@ -1,29 +1,41 @@
 const utilities = require('utilities');
-const { authenticateClient, authenticateUserCredentials } = require('../services');
+const services = require('../services');
+const bcrypt = require('bcryptjs');
 
-exports.token = function (req, res) {
-  const username = req.body.username;
-  const password = req.body.password;
-  const client_id = req.body.client_id;
-  const client_secret = req.body.client_secret;
-
-  if (utilities.hasEmptyValueInArray([username, password, client_id, client_secret])) {
+exports.token = async (req, res) => {
+  if (utilities.hasEmptyValueInArray(Object.values(req.body))) {
     return res.status(400).json({
       error: "invalid_request",
       error_description: 'Required parameters are missing in the request.'
     });
   }
-  console.log(authenticateClient(client_id, client_secret));
-  
-  if (!authenticateClient(client_id, client_secret)) {
-    return res.status(401).json({ error: "access_denied" });
+
+  try {
+    const { client_id, client_secret, username, password } = req.body;
+
+    const client = await services.client.findByClientId(client_id);
+    if (!client) {
+      return res.status(401).json({ error: "access_denied" });
+    }
+
+    const validClientPass = await bcrypt.compare(client_secret, client.clientSecret);
+    if (!validClientPass) {
+      return res.status(401).json({ error: "access_denied" });
+    }
+
+    const user = await services.user.findByUsername(username);
+    if (!user) {
+      return res.status(400).json({ message: 'username or password is wrong' });
+    }
+
+    const validUserPass = await bcrypt.compare(password, user.password);
+    if (!validUserPass) {
+      return res.status(401).json({ error: "username or password is wrong" });
+    }
+
+    const token = utilities.generateAccessToken();
+    return res.json({ token });
+  } catch (error) {
+    return res.sendStatus(500);
   }
-
-  if (!authenticateUserCredentials(username, password)) {
-    return res.status(400).json({ error: "invalid_request" });
-  }
-
-  const token = utilities.generateAccessToken();
-
-  return res.json({ token });
 }
