@@ -1,30 +1,25 @@
-body{
-  font-family: Helvetica, sans-serif;
+.container {
+  padding: 25px;
 }
 
-.login {
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  max-width: 400px;
-  border-radius: 0.2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-p {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-input {
+.signup input {
   box-sizing: border-box;
-  display: block;
+  border: 1px solid rgba(228, 228, 228, .6);
+  margin: 10px 0;
+  padding: 16px 20px;
+  height: 50px;
   width: 100%;
-  padding: 0.5rem 1rem;
-  border-radius: 0.2rem;
-  border: 1px solid #f2f2f2;
-  margin-bottom: 0.5rem;
+  border-radius: 5px;
 }
 
-form{
-  width: 100%;
+.signup input::placeholder {
+  color: #e4e4e4;
+}
+
+.signup input[type="text"], input[type="password"] {
+  font-size: 13px;
+}
+
+.sub-title{
+  color: #999999;
 }

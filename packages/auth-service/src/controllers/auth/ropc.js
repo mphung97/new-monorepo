@@ -1,5 +1,5 @@
 const utilities = require('utilities');
-const services = require('../services');
+const services = require('../../services');
 const bcrypt = require('bcryptjs');
 
 exports.token = async (req, res) => {

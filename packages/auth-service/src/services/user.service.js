@@ -1,11 +1,8 @@
 const { User } = require('../db/model/user');
 
 module.exports = {
-  create: (username, password) => {
-    const user = new User({
-      username,
-      password
-    });
+  create: (data) => {
+    const user = new User(data);
     return user.save();
   },
   findByUsername: username => {

@@ -1,21 +1,10 @@
-"use strict";
-
 const router = require('express').Router();
 
-const service = require('../../services');
+const ROPC = require('../controllers/auth/ropc');
+const AC = require('../controllers/auth/ac');
+const CC = require('../controllers/auth/cc');
 
-const ROPC = require('../../controllers/ropc.controller');
-const AC = require('../../controllers/ac.controller');
-const CC = require('../../controllers/cc.controller');
-
-router
-  .post('/signup', (req, res) => {
-    // validate req.body
-    service.user.create(req.body)
-    .then(res.sendStatus(201))
-    .catch(res.sendStatus(400));
-  })
-  .post('/token', (req, res) => {
+router.post('/token', (req, res) => {
     switch (req.body.grant_type) {
       case 'password':
         ROPC.token(req, res);
