@@ -27,7 +27,7 @@ exports.validationUserData = async (req, res, next) => {
     const joiError = error.details.map(detail => ({
       message: detail.message.replace(/['"]/g, ''),
       type: detail.type
-    })); 
+    }));
 
     /*
       const customError = {

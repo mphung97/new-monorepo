@@ -1,8 +1,5 @@
 const router = require('express').Router();
-
-const ROPC = require('../controllers/auth/ropc');
-const AC = require('../controllers/auth/ac');
-const CC = require('../controllers/auth/cc');
+const { AC, CC, ROPC } = require('../controllers/auth');
 
 router.post('/token', (req, res) => {
   switch (req.body.grant_type) {
@@ -18,11 +15,13 @@ router.post('/token', (req, res) => {
         AC.PKCEtoken(req, res);
         break;
       }
-      res.status(400).send(JSON.stringify({
-        error: 'invalid_request',
-        error_description: 'Client secret and code verifier are exclusive'
-            + 'to each other.',
-      }));
+      res.status(400).send(
+        JSON.stringify({
+          error: 'invalid_request',
+          error_description:
+            'Client secret and code verifier are exclusive to each other.'
+        })
+      );
       break;
 
     case 'client_credentials':
@@ -32,7 +31,7 @@ router.post('/token', (req, res) => {
     default:
       res.status(400).json({
         error: 'invalid_request',
-        error_description: 'Grant type is invalid or missing.',
+        error_description: 'Grant type is invalid or missing.'
       });
       break;
   }

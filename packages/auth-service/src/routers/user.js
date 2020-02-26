@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const middlewares = require('../middlewares/user.middleware');
+const middlewares = require('../middlewares/user');
 const controllers = require('../controllers/user');
 
 router

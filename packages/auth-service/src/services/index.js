@@ -1,7 +1,7 @@
-const client = require('./client.service');
-const user = require('./user.service');
+const client = require('./client');
+const user = require('./user');
 
 module.exports = {
   user,
   client
-}
+};
