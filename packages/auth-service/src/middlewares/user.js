@@ -13,12 +13,12 @@ exports.validationUserData = async (req, res, next) => {
       .required(),
     confirmPassword: Joi.string()
       .valid(Joi.ref('password'))
-      .required()
+      .required(),
   };
 
   try {
     const data = await Joi.validate(req.body, schema, {
-      abortEarly: false
+      abortEarly: false,
     });
     delete data.confirmPassword;
     req.body = data;
@@ -26,14 +26,14 @@ exports.validationUserData = async (req, res, next) => {
   } catch (error) {
     const joiError = error.details.map(detail => ({
       message: detail.message.replace(/['"]/g, ''),
-      type: detail.type
+      type: detail.type,
     }));
 
     /*
       const customError = {
         status: 'failed',
         error: 'Invalid request data. Please review request and try again.'
-      }; 
+      };
     */
     return res.status(400).send(joiError);
   }

@@ -14,7 +14,7 @@ router
   .post('/signup', [
     middlewares.validationUserData,
     middlewares.hashPassword,
-    controllers.signup
+    controllers.signup,
   ]);
 
 module.exports = router;

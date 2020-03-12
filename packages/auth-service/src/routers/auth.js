@@ -15,23 +15,19 @@ router.post('/token', (req, res) => {
         AC.PKCEtoken(req, res);
         break;
       }
-      res.status(400).send(
-        JSON.stringify({
-          error: 'invalid_request',
-          error_description:
-            'Client secret and code verifier are exclusive to each other.'
-        })
-      );
+      res.status(400).json({
+        error: 'invalid_request',
+        error_description:
+          'Client secret and code verifier are exclusive to each other.',
+      });
       break;
-
     case 'client_credentials':
       CC.token(req, res);
       break;
-
     default:
       res.status(400).json({
         error: 'invalid_request',
-        error_description: 'Grant type is invalid or missing.'
+        error_description: 'Grant type is invalid or missing.',
       });
       break;
   }
